@@ -1,4 +1,4 @@
-### Quizzical
+# Quizzical
 
 This is a tiny quiz app built with React as a part of the React Basics Course on Scrimba. I built this as a review for React, so nothing super fancy here. Some minor tweaks to the design, but on the whole I've kept it pretty faithful to the original.
 
