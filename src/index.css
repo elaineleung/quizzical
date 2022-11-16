@@ -166,7 +166,7 @@ body {
 }
 
 .quiz-content {
-  width: min(80%, 50rem);
+  width: min(calc(100% - 3rem), 50rem);
   margin: 2rem auto;
   padding: 1rem;
 }
@@ -186,11 +186,12 @@ body {
 .quiz-answers {
   display: flex;
   flex-wrap: wrap;
+  gap: 0.8rem;
 }
 
-.quiz-answers>*+* {
+/* .quiz-answers>*+* {
   margin-left: 0.8rem;
-}
+} */
 
 .quiz-answers button {
   font-size: var(--fs-answer);

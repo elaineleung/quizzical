@@ -10,7 +10,7 @@ export default function QuizItem(props) {
     
     function styleButton(answer) {
         let style;
-        if (!props.completed) {
+        if (!props.isCompleted) {
             style = selectedAns == answer ? "answer-selected" : ""   
         } else {
             switch (true) {
@@ -31,15 +31,15 @@ export default function QuizItem(props) {
         <article className="quiz-item">
             <h2 className="quiz-question">{props.question}</h2>
             <ul className="quiz-answers">
-                {props.allAnswers.map((ans, idx) => {
+                {props.allAnswers.map((answer, idx) => {
                     return (
                         <li key={idx}>
                             <button
-                                value={ans}
-                                onClick={() => handleClick(ans)}
-                                className={styleButton(ans)}
-                                disabled={ props.completed ? true : false }
-                            >{ans}</button>
+                                value={answer}
+                                onClick={() => handleClick(answer)}
+                                className={styleButton(answer)}
+                                disabled={props.isCompleted}
+                            >{answer}</button>
                         </li>
                     )
                 }

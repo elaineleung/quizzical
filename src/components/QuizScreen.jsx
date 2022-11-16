@@ -3,8 +3,8 @@ import { decode } from 'html-entities'
 import QuizItem from "./QuizItem"
 
 export default function QuizScreen(props) {
-    const [selected, setSelected] = useState(new Array(5).fill(null))
-    const [completed, setCompleted] = useState(false)
+    const [selected, setSelected] = useState(new Array(props.numOfItems).fill(""))
+    const [isCompleted, setIsCompleted] = useState(false)
     const [score, setScore] = useState(0)
 
     function selectAnswer(event, index) {
@@ -17,7 +17,7 @@ export default function QuizScreen(props) {
     }
 
     function checkAnswers() {
-        setCompleted(true)
+        setIsCompleted(true)
         const points = selected.reduce((acc, cur, idx) => {
             return cur == props.quizData[idx].correct_answer ? acc + 1 : acc
         }, 0)
@@ -25,21 +25,19 @@ export default function QuizScreen(props) {
     }
 
     function newGame() {
-        setCompleted(false)
+        setIsCompleted(false)
         props.getQuizData()
     }
-    // function parseString(string) {
-    //     return string.replace(/&quot;/g, '"').replace(/&#039;/g, "'")
-    // }
+
 
     const quizContent = props.quizData.map((item, idx) => (
         <QuizItem
             key={idx}
             question={decode(item.question)}
             correctAnswer={decode(item.correct_answer)}
-            allAnswers={item.all_answers.map(ans => decode(ans))}
+            allAnswers={item.all_answers.map(answer => decode(answer))}
             selectAnswer={() => selectAnswer(event, idx)}
-            completed={completed}
+            isCompleted={isCompleted}
         />
     ))
 
@@ -47,11 +45,11 @@ export default function QuizScreen(props) {
         <main className="quiz-content">
             <div className="quiz-items">{quizContent}</div>
             <div className="quiz-footer">
-                {!completed ? (
+                {!isCompleted ? (
                     <button onClick={checkAnswers} className="btn">Check answers</button>
                 ) : (
                         <>
-                            <span className="quiz-footer__text">You scored {score}/5 correct answers</span>
+                            <span className="quiz-footer__text">You scored {score}/{props.numOfItems} correct answers</span>
                             <button onClick={newGame} className="btn">Play again</button>
                         </>
                     )}
