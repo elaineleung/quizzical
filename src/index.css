@@ -185,6 +185,7 @@ body {
 
 .quiz-answers {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .quiz-answers>*+* {
