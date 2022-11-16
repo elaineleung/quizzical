@@ -98,7 +98,7 @@ body {
   /* overflow-y: hidden; */
 }
 
-body::before {
+#root::before {
   content: "";
   background-image: url("/blob-top.svg");
   background-repeat: none;
@@ -110,7 +110,7 @@ body::before {
   z-index: -1
 }
 
-body::after {
+#root::after {
   content: "";
   background-image: url("/blob-bottom.svg");
   background-repeat: none;
