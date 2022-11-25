@@ -4,7 +4,6 @@ import QuizItem from "./QuizItem"
 
 export default function QuizScreen(props) {
     const [selected, setSelected] = useState(new Array(props.numOfItems).fill(""))
-    const [isCompleted, setIsCompleted] = useState(false)
     const [score, setScore] = useState(0)
 
     function selectAnswer(event, index) {
@@ -17,7 +16,7 @@ export default function QuizScreen(props) {
     }
 
     function checkAnswers() {
-        setIsCompleted(true)
+        props.setIsCompleted(true)
         const points = selected.reduce((acc, cur, idx) => {
             return cur == props.quizData[idx].correct_answer ? acc + 1 : acc
         }, 0)
@@ -25,8 +24,9 @@ export default function QuizScreen(props) {
     }
 
     function newGame() {
-        setIsCompleted(false)
+        props.setIsCompleted(false)
         props.getQuizData()
+        props.setQuizData([])
     }
 
 
@@ -37,7 +37,7 @@ export default function QuizScreen(props) {
             correctAnswer={decode(item.correct_answer)}
             allAnswers={item.all_answers.map(answer => decode(answer))}
             selectAnswer={() => selectAnswer(event, idx)}
-            isCompleted={isCompleted}
+            isCompleted={props.isCompleted}
         />
     ))
 
@@ -45,7 +45,7 @@ export default function QuizScreen(props) {
         <main className="quiz-content">
             <div className="quiz-items">{quizContent}</div>
             <div className="quiz-footer">
-                {!isCompleted ? (
+                {!props.isCompleted ? (
                     <button onClick={checkAnswers} className="btn">Check answers</button>
                 ) : (
                         <>
