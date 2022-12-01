@@ -8,10 +8,12 @@ const NUMBER_OF_ITEMS = 5
 const NUMBER_OF_CHOICES = 4
 
 export default function App() {
-  const [isGameStarted, setIsGameStarted] = useState(false)
+  const [isQuizScreenLoaded, setIsQuizScreenLoaded] = useState(false)
+  const [isDataLoading, setIsDataLoading] = useState(false)
   const [quizData, setQuizData] = useState(getQuizData)
 
   function getQuizData() {
+    setIsDataLoading(true)
     fetch(`https://opentdb.com/api.php?amount=${NUMBER_OF_ITEMS}&category=9&type=multiple`)
       .then(res => res.json())
       .then(data => {
@@ -24,31 +26,31 @@ export default function App() {
           return item
         })
         setQuizData(data.results)
+        setIsDataLoading(false)
       })
   }
 
 
   function handleStart() {
-    setIsGameStarted(true)
+    setIsQuizScreenLoaded(true)
   }
 
   return (
     <div className="app-content">
       <div className="main-content">
-        {!isGameStarted
+        {!isQuizScreenLoaded
           ? <StartScreen handleStart={handleStart} />
-          : (!quizData?.length)
+          : isDataLoading
             ? <Loader />
             : <QuizScreen
                 getQuizData={getQuizData} 
                 quizData={quizData}
                 numOfItems={NUMBER_OF_ITEMS}
-                setQuizData={setQuizData}
               />
         }
       </div>
 
-      {!isGameStarted || quizData?.length !== 0 ? <Footer /> : null}
+      {!isQuizScreenLoaded || !isDataLoading ? <Footer /> : null}
     </div>
   )
 }

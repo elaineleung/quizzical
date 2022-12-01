@@ -166,7 +166,7 @@ body {
 }
 
 .quiz-content {
-  width: min(calc(100% - 3rem), 50rem);
+  width: min(calc(100% - 3rem), 50em);
   margin: 2rem auto;
   padding: 1rem;
 }

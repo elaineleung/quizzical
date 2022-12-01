@@ -27,7 +27,6 @@ export default function QuizScreen(props) {
     function newGame() {
         setIsCompleted(false)
         props.getQuizData()
-        props.setQuizData([])
     }
 
 
