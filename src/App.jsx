@@ -10,7 +10,6 @@ const NUMBER_OF_CHOICES = 4
 export default function App() {
   const [isGameStarted, setIsGameStarted] = useState(false)
   const [quizData, setQuizData] = useState(getQuizData)
-  const [isCompleted, setIsCompleted] = useState(false)
 
   function getQuizData() {
     fetch(`https://opentdb.com/api.php?amount=${NUMBER_OF_ITEMS}&category=9&type=multiple`)
@@ -44,8 +43,6 @@ export default function App() {
                 getQuizData={getQuizData} 
                 quizData={quizData}
                 numOfItems={NUMBER_OF_ITEMS}
-                isCompleted={isCompleted} 
-                setIsCompleted={setIsCompleted}
                 setQuizData={setQuizData}
               />
         }
